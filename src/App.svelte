@@ -1,11 +1,11 @@
 <script lang="ts">
-
+  import CodePreview from './lib/CodePreview.svelte'
 </script>
 
 <main>
   <h1>Automation Studio Color Themer</h1>
   <div class="container">
-
+    <CodePreview />
   </div>
 </main>
 
