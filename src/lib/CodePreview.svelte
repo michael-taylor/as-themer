@@ -7,15 +7,14 @@
 	import Number from './syntax/Number.svelte'
 	import Op from './syntax/Op.svelte'
 	import { theme } from './theme.svelte.ts'
+	import { Checkbox, Heading } from "flowbite-svelte";
 
 	let monitorMode = $state(false);
 </script>
 
-<div style="text-align: left">
-	<label>
-		<input type="checkbox" bind:checked={monitorMode}/>
-		Monitor mode
-	</label>
+<div class="container">
+	<Heading tag="h2">Code preview</Heading>
+	<Checkbox bind:checked={monitorMode}>Monitor mode</Checkbox>
 	<pre class="codeArea" 
 		style="::selection: {theme.selectionColor}"
 		style:background={monitorMode ? theme.monitorBackground : theme.background}
@@ -42,6 +41,13 @@
 </div>
 
 <style>
+	.container {
+		display: flex;
+		flex-direction: column;
+		row-gap: 10px;
+		text-align: left;
+	}
+
 	.codeArea { 
 		padding: 10px;
 		text-align: left;
