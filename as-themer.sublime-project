@@ -1,0 +1,15 @@
+{
+	"build_systems": 
+	[
+		{
+			"name": "dev",
+			"cmd": ["npm", "run", "dev"]
+		},
+	],
+	"folders":
+	[
+		{
+			"path": "."
+		}
+	]
+}
