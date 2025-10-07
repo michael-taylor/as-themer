@@ -7,14 +7,13 @@
 	import Number from './syntax/Number.svelte'
 	import Op from './syntax/Op.svelte'
 	import { theme } from './theme.svelte'
-	import { Checkbox, Heading } from "flowbite-svelte";
 
 	let monitorMode = $state(false);
 </script>
 
 <div class="container">
-	<Heading tag="h2">Code preview</Heading>
-	<Checkbox bind:checked={monitorMode}>Monitor mode</Checkbox>
+	<h3 class="h3">Code preview</h3>
+<!--	<Checkbox bind:checked={monitorMode}>Monitor mode</Checkbox> -->
 	<pre class="codeArea" 
 		style:background={monitorMode ? theme.monitorBackground : theme.background}
 		style:color={theme.normalColor}>

@@ -1,12 +1,11 @@
 <script lang="ts">
   import CodePreview from './lib/CodePreview.svelte'
-  import { Heading } from 'flowbite-svelte'
 </script>
 
-<div class="dark:bg-gray-800 text-center p-8">
-  <Heading tag="h1" class="mb-4 text-4xl font-extrabold  md:text-5xl lg:text-6xl">
+<div class="text-center p-8">
+  <h1 class="h1">
     Automation Studio Color Themer
-  </Heading>
+  </h1>
   <div class="container">
     <CodePreview />
   </div>
