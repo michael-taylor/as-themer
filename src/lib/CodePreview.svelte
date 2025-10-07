@@ -1,54 +1,35 @@
 <script lang="ts">
-	import Keyword from './syntax/Keyword.svelte'
-	import Datatype from './syntax/Datatype.svelte'
-	import Include from './syntax/Include.svelte'
-	import String from './syntax/String.svelte'
-	import Comment from './syntax/Comment.svelte'
-	import Number from './syntax/Number.svelte'
-	import Op from './syntax/Op.svelte'
-	import { theme } from './theme.svelte'
+	import CodeBlock from "./components/CodeBlock/CodeBlock.svelte";
+	import { theme } from "./theme.svelte";
 
 	let monitorMode = $state(false);
+	const sampleCode = `#include <bur/plctypes.h>
+
+int main() {
+    UDINT length = 256;
+    STRING message[5];
+    STRING *otherMessage = "Hello, World";
+    int i;
+
+    // The braces in this for loop will be highlighted
+    for (i = 0; i < sizeof(message); i++) {
+        message[i] = 0x00;
+    }
+
+    /* Another memory clear */
+    brsmemset((UDINT) message, 0x00, sizeof(message));
+
+    return length;
+}`;
 </script>
 
-<div class="container">
-	<h3 class="h3">Code preview</h3>
-<!--	<Checkbox bind:checked={monitorMode}>Monitor mode</Checkbox> -->
-	<pre class="codeArea" 
-		style:background={monitorMode ? theme.monitorBackground : theme.background}
-		style:color={theme.normalColor}>
-<Keyword>#include</Keyword> <Include>&lt;bur/plctypes.h&gt;</Include>
-
-<Keyword>int</Keyword> main<Op>() {'{'}</Op>
-    <Datatype>UDINT</Datatype> length <Op>=</Op> <Number>256</Number>;
-    <Datatype>STRING</Datatype> message[<Number>5</Number>];
-    <Datatype>STRING</Datatype> *otherMessage <Op>=</Op> <String>"Hello, World"</String>;
-    <Keyword>int</Keyword> i;
-
-    <Comment>// The braces in this for loop will be highlighted</Comment>
-    <Keyword>for</Keyword> (i <Op>=</Op> <Number>0</Number>; i <Op>{'<'}</Op> <Keyword>sizeof</Keyword>(message); i<Op>++</Op>) <Op hasMatch={true}>{'{'}</Op>
-        message[i] <Op>=</Op> <Number>0x00</Number>;
-    <Op hasMatch={true}>{'}'}</Op>
-
-    <Comment>/* Another memory clear */</Comment>
-    brsmemset((<Datatype>UDINT</Datatype>) message, <Number>0x00</Number>, <Keyword>sizeof</Keyword>(message));
-
-    <Keyword>return</Keyword> length;
-<Op>{'}'}</Op>
-</pre>
+<div class="space-y-2">
+	<h4 class="h4">Code preview</h4>
+	<div class="text-left">
+		<label class="flex items-center space-x-2">
+			<input class="checkbox" type="checkbox" />
+			<p>Monitor mode</p>
+		</label>
+		<CodeBlock code={sampleCode} lang="c" />
+	</div>
 </div>
-
-<style>
-	.container {
-		display: flex;
-		flex-direction: column;
-		row-gap: 10px;
-		text-align: left;
-	}
-
-	.codeArea { 
-		padding: 10px;
-		text-align: left;
-		font-size: 12pt;
-	}
-</style>
