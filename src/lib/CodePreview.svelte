@@ -1,5 +1,6 @@
 <script lang="ts">
 	import CodeBlock from "./components/CodeBlock/CodeBlock.svelte";
+	import defaultTheme from "./themes/default.json";
 	import { theme } from "./theme.svelte";
 
 	let monitorMode = $state(false);
@@ -25,11 +26,11 @@ int main() {
 
 <div class="space-y-2">
 	<h4 class="h4">Code preview</h4>
-	<div class="text-left">
+	<div class="text-left space-y-2">
 		<label class="flex items-center space-x-2">
 			<input class="checkbox" type="checkbox" />
 			<p>Monitor mode</p>
 		</label>
-		<CodeBlock code={sampleCode} lang="c" />
+		<CodeBlock code={sampleCode} lang="c" themeData={defaultTheme} themeName="default" />
 	</div>
 </div>

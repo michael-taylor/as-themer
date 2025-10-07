@@ -1,19 +1,16 @@
 <script module>
-	import { createHighlighterCoreSync } from "shiki/core";
+	import { createHighlighter } from "shiki";
 	import { createJavaScriptRegexEngine } from "shiki/engine/javascript";
-	// Themes
-	import themeDarkPlus from "shiki/themes/dark-plus.mjs";
+	import defaultTheme from "../../themes/default.json";
+
 	// Languages
 	import c from "shiki/langs/c.mjs";
-	import console from "shiki/langs/console.mjs";
 
 	// https://shiki.style/guide/sync-usage
-	const shiki = createHighlighterCoreSync({
+	const shiki = await createHighlighter({
 		engine: createJavaScriptRegexEngine(),
-		// Implement your import theme.
-		themes: [themeDarkPlus],
-		// Implement your imported and supported languages.
-		langs: [c, console],
+		themes: [],
+		langs: [c],
 	});
 </script>
 
@@ -22,8 +19,9 @@
 
 	let {
 		code = "",
-		lang = "console",
-		theme = "dark-plus",
+		lang = "c",
+		themeName = "default",
+		themeData = defaultTheme,
 		// Base Style Props
 		base = " overflow-hidden",
 		rounded = "rounded-container",
@@ -36,7 +34,11 @@
 	}: CodeBlockProps = $props();
 
 	// Shiki convert to HTML
-	const generatedHtml = shiki.codeToHtml(code, { lang, theme });
+	shiki.loadThemeSync(themeData);
+	const generatedHtml = shiki.codeToHtml(code, {
+		lang: lang,
+		theme: themeName
+	});
 </script>
 
 <div class="{base} {rounded} {shadow} {classes} {preBase} {prePadding} {preClasses}">
