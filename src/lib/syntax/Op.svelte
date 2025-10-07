@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { theme } from '../theme.svelte.js';
-	let { children, hasMatch } = $props();
+	let { children, hasMatch = false } = $props();
 </script>
 
 <span 
