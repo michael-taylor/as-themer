@@ -1,6 +1,52 @@
 import { reactive } from "vue";
 
-export const theme = reactive({
+export interface Theme {
+    background: string,
+    monitorBackground: string,
+    datatypes: {
+        foreground: string,
+    },
+    numbers: {
+        foreground: string,
+    },
+    invalidKeywords: {
+        foreground: string,
+    },
+    keywords: {
+        foreground: string,
+    },
+    names: {
+        foreground: string,
+    },
+    comments: {
+        foreground: string,
+    },
+    strings: {
+        foreground: string,
+    },
+    text: {
+        foreground: string,
+    },
+    selection: {
+        foreground: string,
+    },
+    operators: {
+        foreground: string,
+    },
+    lineNumbers: {
+        foreground: string,
+    },
+    bracesHighlight: {
+        foreground: string,
+    },
+    includeFiles: {
+        foreground: string,
+    }
+}
+
+export const currentTheme = reactive({
+    background: "#FFFFFF",
+    monitorBackground: "#888888",
     datatypes: {
         foreground: "#FF00FF",
     },
