@@ -136,5 +136,5 @@ export const themes = {
         bracesHighlight: "#FFFF00",
         monitorBackground: "#BBBBBB",
     }),
-    dracula: themeFromTextMate(dracula as TextMateTheme),
+    dracula: themeFromTextMate(dracula as unknown as TextMateTheme),
 }
