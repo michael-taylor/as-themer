@@ -4,7 +4,7 @@ import {currentTheme} from "./theme.ts";
 import {themeC} from "./c-themer.ts";
 
 let monitorMode = ref<Boolean>(false);
-const sampleCode = `#include &lt;bur/plctypes.h&gt;
+const sampleCode = `#include <bur/plctypes.h>
 
 int main() {
     UDINT length = 256;
@@ -23,7 +23,7 @@ int main() {
     return length;
 }`
 
-let htmlOut = themeC(sampleCode, currentTheme).join("\n");
+let htmlOut = themeC(sampleCode, currentTheme);
 </script>
 
 <template>
@@ -32,12 +32,25 @@ let htmlOut = themeC(sampleCode, currentTheme).join("\n");
     <div class="text-left space-y-2">
       <v-switch label="Monitor mode" v-model="monitorMode"></v-switch>
     </div>
-    <pre class="codePreview" v-html="htmlOut"></pre>
+    <div class="codePreview" :style="{background: monitorMode ? currentTheme.monitorBackground() : currentTheme.background}">
+      <table>
+        <tr v-for="(line, index) in htmlOut">
+          <td :style="{color: currentTheme.lineNumbers()}">{{index+1}}</td>
+          <td v-html="line"/>
+        </tr>
+      </table>
+    </div>
   </div>
 </template>
 
 <style scoped>
 .codePreview {
   text-align: left;
+  white-space: pre;
+  font-family: monospace;
+}
+.codePreview td {
+  padding-left: 5px;
+  padding-right: 5px;
 }
 </style>
