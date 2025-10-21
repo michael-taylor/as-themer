@@ -1,4 +1,4 @@
-import { reactive } from "vue";
+import { ref } from "vue";
 import { themes } from "./themes.ts";
 
-export const currentTheme = reactive(themes.dracula);
+export const currentTheme = ref(themes[0]);
