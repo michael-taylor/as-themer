@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "color": "^5.0.2",
     "tm-themes": "^1.10.11",
     "vue": "^3.5.22",
     "vuetify": "^3.10.5"
