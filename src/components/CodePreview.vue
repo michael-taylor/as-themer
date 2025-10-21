@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {ref} from "vue";
+import {ref, watch} from "vue";
 import {currentTheme} from "./theme.ts";
 import {themeC} from "./c-themer.ts";
 
@@ -23,7 +23,9 @@ int main() {
     return length;
 }`
 
-let htmlOut = themeC(sampleCode, currentTheme);
+let htmlOut = themeC(sampleCode, currentTheme.value);
+
+watch(currentTheme, (newTheme) => htmlOut = themeC(sampleCode, newTheme));
 </script>
 
 <template>
