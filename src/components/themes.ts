@@ -26,84 +26,111 @@ interface TextMateTheme {
 }
 
 interface ColorMap {
-    datatypes?: string,
-    numbers?: string,
-    keywords?: string,
-    invalidKeywords?: string,
-    names?: string,
-    comments?: string,
-    strings?: string,
-    operators?: string,
-    includeFiles?: string,
-    lineNumbers?: string,
-    bracesHighlight?: string,
-    selectionText?: string,
-    monitorBackground?: string,
+    "DataType"?: string,
+    "Number"?: string,
+    "Keyword"?: string,
+    "InvalidKeyword"?: string,
+    "Name"?: string,
+    "Remark"?: string,
+    "String"?: string,
+    "Operator"?: string,
+    "IncludeFiles"?: string,
+    "Linenumber"?: string,
+    "BracesHighlight"?: string,
+    "TextSelection"?: string,
+    "PrintPageBoundaries"?: string,
+    "FormFeed"?: string,
+    "LineModificatorChange"?: string,
+    "LineModificatorSave"?: string,
+    "HypertextUrlHighlight"?: string,
+    "CodeSnippets"?: string,
+    "ColumnIndentation"?: string,
+    "Errors"?: string,
+    "Warnings"?: string,
+    "Equal"?: string,
+    "Similar"?: string,
+    "InLeftPaneOnly"?: string,
+    "InRightPaneOnly"?: string,
+    "Different"?: string,
+    "DifferentContent"?: string,
+    "DifferentDetails"?: string,
+    "DifferentBlockItem"?: string,
+    "IncomparableBlockItem"?: string,
+    "NoHwInfo"?: string,
+    "LadderPowerFlow"?: string,
+    "Value"?: string,
+    "ForceValue"?: string,
+    "ArchiveValue"?: string,
+    "RootNodeColor"?: string,
+    "InactiveValue"?: string,
+    "SFCTransition"?: string,
 }
 
 export class Theme {
     name: string;
     foreground: string;
     background: string;
+    monitorBackground: string;
+    selectionBackground: string;
     colorMap: ColorMap;
+    defaultColorMap = {
+        "DataType": "#FF00FF",
+        "Number": "#000000",
+        "Keyword": "#0000FF",
+        "InvalidKeyword": "#FF0000",
+        "Name": "#000000",
+        "Remark": "#008000",
+        "String": "#FF00FF",
+        "Operator": "#000000",
+        "IncludeFiles": "#800000",
+        "Linenumber": "#000000",
+        "BracesHighlight": "#FFFF00",
+        "TextSelection": "#000000",
+        "PrintPageBoundaries": "#008000",
+        "FormFeed": "#FF0000",
+        "LineModificatorChange": "#FFFF00",
+        "LineModificatorSave": "#008000",
+        "HypertextUrlHighlight": "#0000FF",
+        "CodeSnippets": "#B41CB4",
+        "ColumnIndentation": "#D3D3D3",
+        "Equal": "#000000",
+        "Similar": "#CD5C5C",
+        "InLeftPaneOnly": "#0000FF",
+        "InRightPaneOnly": "#008000",
+        "Different": "#FF0000",
+        "DifferentContent": "#008B8B",
+        "DifferentDetails": "#DA70D6",
+        "DifferentBlockItem": "#FF0000",
+        "IncomparableBlockItem": "#FFA500",
+        "NoHwInfo": "#5F9EA0",
+        "Errors": "#FF0000",
+        "Warnings": "#008000",
+        "LadderPowerFlow": "#0000FF",
+        "Value": "#000000",
+        "ForceValue": "#FF0000",
+        "ArchiveValue": "#008000",
+        "RootNodeColor": "#0000FF",
+        "InactiveValue": "#A9A9A9",
+        "SFCTransition": "#0000FF",
+    }
 
-    constructor(name: string, foreground: string, background: string, colormap: ColorMap = {}) {
+    constructor(
+        name: string,
+        foreground: string = "#000000",
+        background: string = "#FFFFFF",
+        selectionBackground: string = "#0000FF",
+        monitorBackground: string = "#888888",
+        colormap: ColorMap = {}) {
         this.name = name;
         this.foreground = foreground;
         this.background = background;
+        this.selectionBackground = selectionBackground;
+        this.monitorBackground = monitorBackground;
         this.colorMap = colormap;
     }
 
-    datatypes(): string {
-        return this.colorMap.datatypes ?? this.foreground;
-    }
-
-    numbers(): string {
-        return this.colorMap.numbers ?? this.foreground;
-    }
-
-    keywords(): string {
-        return this.colorMap.keywords ?? this.foreground;
-    }
-
-    invalidKeywords(): string {
-        return this.colorMap.invalidKeywords ?? this.foreground;
-    }
-
-    names(): string {
-        return this.colorMap.names ?? this.foreground;
-    }
-
-    comments(): string {
-        return this.colorMap.comments ?? this.foreground;
-    }
-
-    strings(): string {
-        return this.colorMap.strings ?? this.foreground;
-    }
-
-    operators(): string {
-        return this.colorMap.operators ?? this.foreground;
-    }
-
-    includeFiles(): string {
-        return this.colorMap.includeFiles ?? this.foreground;
-    }
-
-    lineNumbers(): string {
-        return this.colorMap.lineNumbers ?? this.foreground;
-    }
-
-    bracesHighlight(): string {
-        return this.colorMap.bracesHighlight ?? this.foreground;
-    }
-
-    selection(): string {
-        return this.colorMap.selectionText ?? this.foreground;
-    }
-
-    monitorBackground(): string {
-        return this.colorMap.monitorBackground ?? Color(this.background).mix(Color("#FF0000"), 0.05).hex();
+    color(name: string): string {
+        return this.colorMap[name] ?? this.defaultColorMap[name] ?? "#000000";
     }
 }
 
@@ -118,32 +145,30 @@ function findColorForScope(theme: TextMateTheme, scope: string) : string | null 
 
 function themeFromTextMate(theme: TextMateTheme) : Theme {
     // Calculate a monitor background by tinting the normal background reddish
-    return new Theme(theme.displayName, theme.colors["editor.foreground"], theme.colors["editor.background"], {
-        datatypes: findColorForScope(theme, "entity.name.class")!,
-        keywords: findColorForScope(theme, "keyword")!,
-        invalidKeywords: findColorForScope(theme, "invalid")!,
-        names: findColorForScope(theme, "variable")!,
-        comments: findColorForScope(theme, "comment")!,
-        strings: findColorForScope(theme, "string")!,
-        operators: findColorForScope(theme, "keyword.operator") ?? findColorForScope(theme, "keyword")!,
-        includeFiles: findColorForScope(theme, "header")!,
-        lineNumbers: theme.colors["editorLineNumber.foreground"],
-        bracesHighlight: theme.colors["editorBracketHighlight.foreground1"],
-        selectionText: theme.colors["editor.selectionBackground"],
+    return new Theme(
+        theme.displayName,
+        theme.colors["editor.foreground"],
+        theme.colors["editor.background"],
+        theme.colors["editor.selectionBackground"],
+        Color(theme.colors["editor.background"]).mix(Color("#FF0000"), 0.05).hex(),
+        {
+            "DataType": findColorForScope(theme, "entity.name.class")!,
+            "Number": findColorForScope(theme, "constant")!,
+            "Keyword": findColorForScope(theme, "keyword")!,
+            "InvalidKeyword": findColorForScope(theme, "invalid")!,
+            "Name": findColorForScope(theme, "variable")!,
+            "Remark": findColorForScope(theme, "comment")!,
+            "String": findColorForScope(theme, "string")!,
+            "Operator": findColorForScope(theme, "keyword.operator") ?? findColorForScope(theme, "keyword")!,
+            "IncludeFiles": findColorForScope(theme, "header")!,
+            "Linenumber": theme.colors["editorLineNumber.foreground"],
+            "BracesHighlight": theme.colors["editorBracketHighlight.foreground1"],
+            "TextSelection": theme.colors["editor.selectionBackground"],
     });
 }
 
 export const themes = [
-    new Theme("Automation Studio", "#000000", "#FFFFFF", {
-        datatypes: "#FF00FF",
-        keywords: "#0000FF",
-        invalidKeywords: "#FF0000",
-        comments: "#008000",
-        strings: "#FF00FF",
-        includeFiles: "#800000",
-        bracesHighlight: "#FFFF00",
-        monitorBackground: "#BBBBBB",
-    }),
+    new Theme("Automation Studio default"),
     themeFromTextMate(dracula as unknown as TextMateTheme),
     themeFromTextMate(github_dark as unknown as TextMateTheme),
     themeFromTextMate(github_light as unknown as TextMateTheme),

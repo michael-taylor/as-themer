@@ -89,8 +89,8 @@ export function themeC(code: string, theme: Theme) : string[] {
             let re = /(&lt;.+&gt;)/g;
             // Replace the angle brackets for HTML
             line = line.replace("<", "&lt;").replace(">", "&gt;");
-            line = line.replace(re, `<span style="color: ${theme.includeFiles()}">$1</span>`);
-            line = line.replace("#include", `<span style="color: ${theme.keywords()}">#include</span>`);
+            line = line.replace(re, `<span style="color: ${theme.color("IncludeFiles")}">$1</span>`);
+            line = line.replace("#include", `<span style="color: ${theme.color("Keyword")}">#include</span>`);
         } else {
             var tokens = readTokens(line);
             var newLine = "";
@@ -101,17 +101,17 @@ export function themeC(code: string, theme: Theme) : string[] {
                 } else if (t == " ") {
                     newLine += " ";
                 } else if (isNumber(t)) {
-                    newLine += `<span style="color: ${theme.numbers()}">${t}</span>`;
+                    newLine += `<span style="color: ${theme.color("Number")}">${t}</span>`;
                 } else if (isKeyword(t)) {
-                    newLine += `<span style="color: ${theme.keywords()}">${t}</span>`;
+                    newLine += `<span style="color: ${theme.color("Keyword")}">${t}</span>`;
                 } else if (isDatatype(t)) {
-                    newLine += `<span style="color: ${theme.datatypes()}">${t}</span>`;
+                    newLine += `<span style="color: ${theme.color("DataType")}">${t}</span>`;
                 } else if (isString(t)) {
-                    newLine += `<span style="color: ${theme.strings()}">${t}</span>`;
+                    newLine += `<span style="color: ${theme.color("String")}">${t}</span>`;
                 } else if (isComment(t)) {
-                    newLine += `<span style="color: ${theme.comments()}">${t}</span>`;
+                    newLine += `<span style="color: ${theme.color("Remark")}">${t}</span>`;
                 } else if (isOperator(t)) {
-                    newLine += `<span style="color: ${theme.operators()}">${t}</span>`;
+                    newLine += `<span style="color: ${theme.color("Operator")}">${t}</span>`;
                 } else {
                     newLine += `<span style="color: ${theme.foreground}">${t}</span>`;
                 }
