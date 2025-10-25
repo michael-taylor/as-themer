@@ -78,9 +78,9 @@ function onDownload() {
               <br>
               <p>
                 Make sure that all instances of Automation Studio are closed. Copy the downloaded file as
-                <b>Editor.set</b> to <b>???</b>. The downloaded theme attempts to keep all non-color options as their
-                default value. If you've made changes to your editor settings, you may want to manually merge the
-                downloaded file with your current one.
+                <b>Editor.set</b> to <b>%AppData%\BR\{AS_Version}</b>. The downloaded theme attempts to keep all
+                non-color options as their default value. If you've made changes to your editor settings, you may want
+                to manually merge the downloaded file with your current one.
               </p>
             </v-card-text>
 
