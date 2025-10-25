@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {ref, shallowRef, watch} from "vue";
+import {ref, watch} from "vue";
 import {currentTheme} from "./theme.ts";
 import {themeC} from "./c-themer.ts";
 import exportTheme from "./exporter.ts";
@@ -25,10 +25,10 @@ int main() {
     return length;
 }`
 
-let htmlOut = themeC(sampleCode, currentTheme.value);
-let dialog = shallowRef(false);
+let htmlOut = themeC(sampleCode, currentTheme.value as Theme);
+let dialog = ref(false);
 
-watch(currentTheme, (newTheme) => htmlOut = themeC(sampleCode, newTheme));
+watch(currentTheme, (newTheme) => htmlOut = themeC(sampleCode, newTheme as Theme));
 
 function onDownload() {
   const themeData = exportTheme(currentTheme.value as Theme);
@@ -40,7 +40,7 @@ function onDownload() {
   a.style.display = "none";
   a.click();
   URL.revokeObjectURL(themeUrl);
-  this.dialog.update(false);
+  dialog.value = false;
 }
 </script>
 
