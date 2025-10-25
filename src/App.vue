@@ -6,7 +6,25 @@ import Options from "./components/Options.vue";
 
 <template>
   <v-layout class="rounded rounded-md border">
-    <v-app-bar color="surface-variant" title="Automation Studio Themer"></v-app-bar>
+    <v-app-bar :elevation="5">
+      <v-app-bar-title>Automation Studio Themer</v-app-bar-title>
+
+      <v-tooltip text="Return to MRT.dev">
+        <template v-slot:activator="{props}">
+          <v-btn icon v-bind="props" :href="'https://mrt.dev'">
+            <v-icon>mdi-home-account</v-icon>
+          </v-btn>
+        </template>
+      </v-tooltip>
+
+      <v-tooltip text="See source on Github">
+        <template v-slot:activator="{props}">
+          <v-btn icon v-bind="props" :href="'https://github.com/michael-taylor/as-themer'">
+            <v-icon>mdi-github</v-icon>
+          </v-btn>
+        </template>
+      </v-tooltip>
+    </v-app-bar>
 
     <v-navigation-drawer class="pa-3">
       <v-list-item title="Pre-made themes"></v-list-item>
