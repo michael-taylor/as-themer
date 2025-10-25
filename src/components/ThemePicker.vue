@@ -6,12 +6,14 @@ const allThemes = themes;
 </script>
 
 <template>
-  <v-select
-      label="Theme"
-      v-model="currentTheme"
-      :items="allThemes"
-      item-title="name"
-      return-object></v-select>
+  <v-container>
+    <v-select
+        label="Theme"
+        v-model="currentTheme"
+        :items="allThemes"
+        item-title="name"
+        return-object></v-select>
+  </v-container>
 </template>
 
 <style scoped>
