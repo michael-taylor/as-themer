@@ -19,7 +19,7 @@ import Options from "./components/Options.vue";
 
       <v-tooltip text="See source on Github">
         <template v-slot:activator="{props}">
-          <v-btn icon v-bind="props" :href="'https://github.com/michael-taylor/as-themer'">
+          <v-btn icon v-bind="props" :href="'https://github.com/michael-taylor/as-themer'" target="_blank">
             <v-icon>mdi-github</v-icon>
           </v-btn>
         </template>
