@@ -30,48 +30,48 @@ interface TextMateTheme {
     }]
 }
 
-interface ColorMap {
-    "DataType"?: string,
-    "Number"?: string,
-    "Text"?: string,
-    "Keyword"?: string,
-    "InvalidKeyword"?: string,
-    "Name"?: string,
-    "Remark"?: string,
-    "String"?: string,
-    "Operator"?: string,
-    "IncludeFiles"?: string,
-    "Linenumber"?: string,
-    "BracesHighlight"?: string,
-    "TextSelection"?: string,
-    "PrintPageBoundaries"?: string,
-    "FormFeed"?: string,
-    "LineModificatorChange"?: string,
-    "LineModificatorSave"?: string,
-    "HypertextUrlHighlight"?: string,
-    "CodeSnippets"?: string,
-    "ColumnIndentation"?: string,
-    "Errors"?: string,
-    "Warnings"?: string,
-    "Equal"?: string,
-    "Similar"?: string,
-    "InLeftPaneOnly"?: string,
-    "InRightPaneOnly"?: string,
-    "Different"?: string,
-    "DifferentContent"?: string,
-    "DifferentDetails"?: string,
-    "DifferentBlockItem"?: string,
-    "IncomparableBlockItem"?: string,
-    "NoHwInfo"?: string,
-    "LadderPowerFlow"?: string,
-    "Value"?: string,
-    "ForceValue"?: string,
-    "ArchiveValue"?: string,
-    "RootNodeColor"?: string,
-    "InactiveValue"?: string,
-    "SFCTransition"?: string,
-    "GroupBackgroundColor"?: string,
-}
+// interface ColorMap {
+//     "DataType"?: string,
+//     "Number"?: string,
+//     "Text"?: string,
+//     "Keyword"?: string,
+//     "InvalidKeyword"?: string,
+//     "Name"?: string,
+//     "Remark"?: string,
+//     "String"?: string,
+//     "Operator"?: string,
+//     "IncludeFiles"?: string,
+//     "Linenumber"?: string,
+//     "BracesHighlight"?: string,
+//     "TextSelection"?: string,
+//     "PrintPageBoundaries"?: string,
+//     "FormFeed"?: string,
+//     "LineModificatorChange"?: string,
+//     "LineModificatorSave"?: string,
+//     "HypertextUrlHighlight"?: string,
+//     "CodeSnippets"?: string,
+//     "ColumnIndentation"?: string,
+//     "Errors"?: string,
+//     "Warnings"?: string,
+//     "Equal"?: string,
+//     "Similar"?: string,
+//     "InLeftPaneOnly"?: string,
+//     "InRightPaneOnly"?: string,
+//     "Different"?: string,
+//     "DifferentContent"?: string,
+//     "DifferentDetails"?: string,
+//     "DifferentBlockItem"?: string,
+//     "IncomparableBlockItem"?: string,
+//     "NoHwInfo"?: string,
+//     "LadderPowerFlow"?: string,
+//     "Value"?: string,
+//     "ForceValue"?: string,
+//     "ArchiveValue"?: string,
+//     "RootNodeColor"?: string,
+//     "InactiveValue"?: string,
+//     "SFCTransition"?: string,
+//     "GroupBackgroundColor"?: string,
+// }
 
 export class Theme {
     name: string;
@@ -80,8 +80,8 @@ export class Theme {
     monitorBackground: string;
     originalMonitorBackground: string;
     selectionBackground: string;
-    colorMap: ColorMap;
-    defaultColorMap = {
+    colorMap: { [id: string]: string | undefined };
+    defaultColorMap: { [id: string]: string | undefined } = {
         "DataType": "#FF00FF",
         "Number": "#000000",
         "Text": "#000000",
@@ -138,7 +138,7 @@ export class Theme {
         background: string = "#FFFFFF",
         selectionBackground: string = "#0078D4",
         monitorBackground: string = "#E3E3E3",
-        colormap: ColorMap = {}) {
+        colormap: { [id: string]: string | undefined } = {}) {
         this.name = name;
         this.foreground = foreground;
         this.background = background;

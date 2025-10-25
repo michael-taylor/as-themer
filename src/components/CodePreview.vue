@@ -56,22 +56,22 @@ function onDownload() {
         <v-col cols="12" sm="4" style="align-content: center">
           <v-color-input
               label="Monitor background"
-              v-model="currentTheme.monitorBackground"
+              v-model="currentTheme!.monitorBackground"
               hide-details="auto"
               color-pip
               hide-actions
               :style="{visibility: monitorMode ? 'visible' : 'collapse'}" />
         </v-col>
         <v-col cols="12" sm="4" style="align-content: center">
-          <v-btn @click="currentTheme.resetMonitorBackground()"
+          <v-btn @click="currentTheme?.resetMonitorBackground()"
                  :style="{visibility: monitorMode ? 'visible' : 'collapse'}">Reset</v-btn>
         </v-col>
       </v-row>
     </v-container>
-    <div class="codePreview" :style="{background: monitorMode ? currentTheme.monitorBackground : currentTheme.background}">
+    <div class="codePreview" :style="{background: monitorMode ? currentTheme!.monitorBackground : currentTheme!.background}">
       <table>
         <tr v-for="(line, index) in htmlOut">
-          <td :style="{color: currentTheme.color('Linenumber')}">{{index+1}}</td>
+          <td :style="{color: currentTheme?.color('Linenumber')}">{{index+1}}</td>
           <td v-html="line"/>
         </tr>
       </table>
