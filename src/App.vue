@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import CodePreview from './components/CodePreview.vue'
 import ThemePicker from "./components/ThemePicker.vue";
+import Options from "./components/Options.vue";
 </script>
 
 <template>
@@ -12,9 +13,10 @@ import ThemePicker from "./components/ThemePicker.vue";
       <ThemePicker/>
     </v-navigation-drawer>
 
-<!--    <v-navigation-drawer location="right">-->
-<!--      <v-list-item title="Drawer right"></v-list-item>-->
-<!--    </v-navigation-drawer>-->
+    <v-navigation-drawer location="right">
+      <v-list-item title="Options"></v-list-item>
+      <Options/>
+    </v-navigation-drawer>
 
     <v-main class="d-flex align-center justify-center">
       <v-container>
