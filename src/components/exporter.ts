@@ -145,42 +145,18 @@ export default function exportTheme(theme: Theme): string {
         suppressBooleanAttributes: false,
     };
     const builder = new XMLBuilder(options);
-    let xmlTheme =
-        /*
-        {
-            "?xml": [
-                {
-                    "#text": "",
-                }
-            ],
-            ":@": {
-                    "@version": "1.0",
-                    "@encoding": "utf-8"
-            }
-        },
-        {
-            "?AutomationStudio": [
-                {
-                    "#text": "",
-                },
-            ],
-            ":@": {
-                "@FileVersion": "4.9"
-            }
-        },
-       */
-        {
+    let xmlTheme = {
             "EditorSettings": {
-                "@TabWidth": "4",
+                "@TabWidth": theme.options.tabWidth,
                 "@SyntaxColoring": "true",
                 "@Intellisense": "true",
                 "@AutoDeclare": "false",
-                "@ShowWhiteSpace": "false",
-                "@ReplaceTabs": "false",
+                "@ShowWhiteSpace": theme.options.showWhitespace,
+                "@ReplaceTabs": theme.options.replaceTabs,
                 "@IndentMode": "Smart",
                 "@VirtualWhiteSpace": "false",
-                "@ShowLineNumbers": "false",
-                "@AutoFormat": "true",
+                "@ShowLineNumbers": theme.options.showLineNumbers,
+                "@AutoFormat": theme.options.autoFormat,
                 "@PromptBeforeDrag": "false",
                 "@FilteredDescription": "false",
                 "@WordWrapping": "false",
