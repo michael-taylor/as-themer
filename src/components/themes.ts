@@ -78,6 +78,7 @@ export class Theme {
     foreground: string;
     background: string;
     monitorBackground: string;
+    originalMonitorBackground: string;
     selectionBackground: string;
     colorMap: ColorMap;
     defaultColorMap = {
@@ -123,6 +124,14 @@ export class Theme {
         "GroupBackgroundColor": "#000000",
     }
 
+    options = {
+        tabWidth: 4,
+        showWhitespace: false,
+        replaceTabs: false,
+        showLineNumbers: false,
+        autoFormat: true,
+    }
+
     constructor(
         name: string,
         foreground: string = "#000000",
@@ -135,11 +144,16 @@ export class Theme {
         this.background = background;
         this.selectionBackground = selectionBackground;
         this.monitorBackground = monitorBackground;
+        this.originalMonitorBackground = monitorBackground;
         this.colorMap = colormap;
     }
 
     color(name: string): string {
         return this.colorMap[name] ?? this.defaultColorMap[name] ?? "#000000";
+    }
+
+    resetMonitorBackground() {
+        this.monitorBackground = this.originalMonitorBackground;
     }
 }
 
