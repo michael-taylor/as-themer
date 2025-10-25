@@ -4,6 +4,7 @@ import {currentTheme} from "./theme.ts";
 import {themeC} from "./c-themer.ts";
 import exportTheme from "./exporter.ts";
 import type {Theme} from "./themes.ts";
+import {VColorInput} from "vuetify/labs/components";
 
 let monitorMode = ref<Boolean>(false);
 const sampleCode = `#include <bur/plctypes.h>
@@ -47,9 +48,26 @@ function onDownload() {
 <template>
   <div class="flex-column space-y-2">
     <div class="text-h4">Code preview</div>
-    <div class="text-left space-y-2">
-      <v-switch label="Monitor mode" v-model="monitorMode"></v-switch>
-    </div>
+    <v-container>
+      <v-row>
+        <v-col cols="12" sm="4" style="align-content: center">
+          <v-switch label="Monitor mode" v-model="monitorMode"></v-switch>
+        </v-col>
+        <v-col cols="12" sm="4" style="align-content: center">
+          <v-color-input
+              label="Monitor background"
+              v-model="currentTheme.monitorBackground"
+              hide-details="auto"
+              color-pip
+              hide-actions
+              :style="{visibility: monitorMode ? 'visible' : 'collapse'}" />
+        </v-col>
+        <v-col cols="12" sm="4" style="align-content: center">
+          <v-btn @click="currentTheme.resetMonitorBackground()"
+                 :style="{visibility: monitorMode ? 'visible' : 'collapse'}">Reset</v-btn>
+        </v-col>
+      </v-row>
+    </v-container>
     <div class="codePreview" :style="{background: monitorMode ? currentTheme.monitorBackground : currentTheme.background}">
       <table>
         <tr v-for="(line, index) in htmlOut">
@@ -69,27 +87,25 @@ function onDownload() {
           ></v-btn>
         </template>
 
-<!--        <template v-slot:default="{ dialog }">-->
-          <v-card title="Warning">
-            <v-card-text>
-              <p>
-                This site is not responsible for any data loss. Make adequate backups before installing this theme.
-              </p>
-              <br>
-              <p>
-                Make sure that all instances of Automation Studio are closed. Copy the downloaded file as
-                <b>Editor.set</b> to <b>%AppData%\BR\{AS_Version}</b>. The downloaded theme attempts to keep all
-                non-color options as their default value. If you've made changes to your editor settings, you may want
-                to manually merge the downloaded file with your current one.
-              </p>
-            </v-card-text>
+        <v-card title="Warning">
+          <v-card-text>
+            <p>
+              This site is not responsible for any data loss. Make adequate backups before installing this theme.
+            </p>
+            <br>
+            <p>
+              Make sure that all instances of Automation Studio are closed. Copy the downloaded file as
+              <b>Editor.set</b> to <b>%AppData%\BR\{AS_Version}</b>. The downloaded theme attempts to keep all
+              non-color options as their default value. If you've made changes to your editor settings, you may want
+              to manually merge the downloaded file with your current one.
+            </p>
+          </v-card-text>
 
-            <v-card-actions>
-              <v-btn @click="onDownload">Download</v-btn>
-              <v-btn @click="dialog = false">Cancel</v-btn>
-            </v-card-actions>
-          </v-card>
-<!--        </template>-->
+          <v-card-actions>
+            <v-btn @click="onDownload">Download</v-btn>
+            <v-btn @click="dialog = false">Cancel</v-btn>
+          </v-card-actions>
+        </v-card>
       </v-dialog>
     </v-container>
   </div>
