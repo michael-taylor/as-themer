@@ -15,7 +15,12 @@ interface TextMateTheme {
         "editor.background": string,
         "editorLineNumber.foreground": string,
         "editorBracketHighlight.foreground1": string,
-        "editor.selectionBackground": string,
+        "editor.selectionHighlightBackground": string,
+        "editorError.foreground": string,
+        "editorWarning.foreground": string,
+        "editorRuler.foreground": string,
+        "editorGroup.dropBackground": string,
+        "foreground": string,
     },
     tokenColors: [{
         scope: string[] | string,
@@ -28,6 +33,7 @@ interface TextMateTheme {
 interface ColorMap {
     "DataType"?: string,
     "Number"?: string,
+    "Text"?: string,
     "Keyword"?: string,
     "InvalidKeyword"?: string,
     "Name"?: string,
@@ -64,6 +70,7 @@ interface ColorMap {
     "RootNodeColor"?: string,
     "InactiveValue"?: string,
     "SFCTransition"?: string,
+    "GroupBackgroundColor"?: string,
 }
 
 export class Theme {
@@ -76,6 +83,7 @@ export class Theme {
     defaultColorMap = {
         "DataType": "#FF00FF",
         "Number": "#000000",
+        "Text": "#000000",
         "Keyword": "#0000FF",
         "InvalidKeyword": "#FF0000",
         "Name": "#000000",
@@ -112,14 +120,15 @@ export class Theme {
         "RootNodeColor": "#0000FF",
         "InactiveValue": "#A9A9A9",
         "SFCTransition": "#0000FF",
+        "GroupBackgroundColor": "#000000",
     }
 
     constructor(
         name: string,
         foreground: string = "#000000",
         background: string = "#FFFFFF",
-        selectionBackground: string = "#0000FF",
-        monitorBackground: string = "#888888",
+        selectionBackground: string = "#0078D4",
+        monitorBackground: string = "#E3E3E3",
         colormap: ColorMap = {}) {
         this.name = name;
         this.foreground = foreground;
@@ -134,12 +143,12 @@ export class Theme {
     }
 }
 
-function findColorForScope(theme: TextMateTheme, scope: string) : string | null {
+function findColorForScope(theme: TextMateTheme, scope: string) : string | undefined {
     let found = theme.tokenColors.find((element) => element.scope?.includes(scope));
     if (found != null) {
-        return found.settings.foreground ?? null;
+        return found.settings.foreground ?? undefined;
     } else {
-        return null;
+        return undefined;
     }
 }
 
@@ -149,11 +158,12 @@ function themeFromTextMate(theme: TextMateTheme) : Theme {
         theme.displayName,
         theme.colors["editor.foreground"],
         theme.colors["editor.background"],
-        theme.colors["editor.selectionBackground"],
+        theme.colors["editor.selectionHighlightBackground"],
         Color(theme.colors["editor.background"]).mix(Color("#FF0000"), 0.05).hex(),
         {
             "DataType": findColorForScope(theme, "entity.name.class")!,
             "Number": findColorForScope(theme, "constant")!,
+            "Text": theme.colors["foreground"],
             "Keyword": findColorForScope(theme, "keyword")!,
             "InvalidKeyword": findColorForScope(theme, "invalid")!,
             "Name": findColorForScope(theme, "variable")!,
@@ -163,12 +173,18 @@ function themeFromTextMate(theme: TextMateTheme) : Theme {
             "IncludeFiles": findColorForScope(theme, "header")!,
             "Linenumber": theme.colors["editorLineNumber.foreground"],
             "BracesHighlight": theme.colors["editorBracketHighlight.foreground1"],
-            "TextSelection": theme.colors["editor.selectionBackground"],
+            "TextSelection": theme.colors["editor.foreground"],
+            "ColumnIndentation": theme.colors["editorRuler.foreground"],
+            "Errors": theme.colors["editorError.foreground"],
+            "Warnings": theme.colors["editorWarning.foreground"],
+            "LineModificatorChange": findColorForScope(theme,"markup.changed"),
+            "LineModificatorSave": findColorForScope(theme,"markup.inserted"),
+            "GroupBackgroundColor": theme.colors["editorGroup.dropBackground"],
     });
 }
 
 export const themes = [
-    new Theme("Automation Studio default"),
+    new Theme("Default"),
     themeFromTextMate(dracula as unknown as TextMateTheme),
     themeFromTextMate(github_dark as unknown as TextMateTheme),
     themeFromTextMate(github_light as unknown as TextMateTheme),
